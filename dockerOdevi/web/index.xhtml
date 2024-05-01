@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Post Test</title>
+    </h:head>
+    <h:body>
+        <h1>Create New Post</h1>
+        <h:form>
+            title: <h:inputText value="#{postController.entity.title}" /><hr/>
+            context: <h:inputTextarea value="#{postController.entity.context}" cols="20" rows="5"/><hr/>
+            <h:commandButton rendered="#{postController.entity.id == 0}" action="#{postController.create()}" value="create"/>
+            <h:commandButton rendered="#{postController.entity.id != 0}" action="#{postController.update()}" value="update"/>
+        </h:form>
+        <h:form>
+            <h:dataTable border="1" value="#{postController.list}" var="c">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                        #{c.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">title</f:facet>
+                        #{c.title}
+                </h:column>            
+                <h:column>
+                    <f:facet name="header">context</f:facet>
+                        #{c.context}
+                </h:column>             
+                <h:column>
+                    <f:facet name="header">duzeltmeler</f:facet>
+                    <h:commandButton action="#{postController.delete(c)}" value="X"/>
+                    <h:commandButton  action="#{postController.setEntity(c)}" value="duzenle"/>
+                </h:column>            
+            </h:dataTable>
+        </h:form>
+
+
+    </h:body>
+</html>
